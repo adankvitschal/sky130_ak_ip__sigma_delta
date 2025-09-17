@@ -17,7 +17,8 @@ This project automates NGSpice simulations using Python. Users define tests and 
 ```mermaid
 flowchart TD
     A[user: Make parametric schematics and testbenches]
-    B[user: Edit scripts/config.json<br>Define tests & parameter ranges] --> C[user: Run Tests]
+    A --> B[user: Edit scripts/config.json<br>Define tests & parameter ranges]
+    B --> C[user: Run Tests]
     C --> D[system: Generates all NGSpice simulation variants in sim folder]
     D --> E[system: Process results into results.csv and plots]
     E --> F[user: Explore results and choose best combinations]
