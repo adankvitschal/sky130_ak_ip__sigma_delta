@@ -1,0 +1,77 @@
+{
+    "dir": {
+        "testbench": "tb",
+        "simulation": "sim"
+    },
+    "defaults": {
+        "vdd": "1.8",
+        "ibias": "100n",
+        "Cload": "1.0f",
+        "Rload": "1Meg",
+        "clk_period": "5n",
+        "clk_high_voltage": "1.8",
+        "clk_low_voltage": "0.0",
+        "clk_rise_time": "100p",
+        "clk_fall_time": "100p",
+        "tran_start": "9n",
+        "tran_step": "10p",
+        "tran_stop": "15n",
+        "vdiff": "-10m",
+        "vcm": "1.7",
+        "temperature": "25",
+        "corner": "tt"
+    },
+    "variants": [
+        {
+            "description": "Default",
+            "parameters": {
+                "mbias_length": "500n",
+                "mbias_width": "1u",
+                "mbias_ratio": "5",
+                "diffpair_length": "1u",
+                "diffpair_width": "5u"
+            }
+        }
+    ],
+    "tests": {
+        "clkcomp_transfer": {
+            "testbench": "tb_clk_tran.sch",
+            "parser": "clkcomp_prop_delay.py",
+            "outputs":  [
+                {
+                    "description": "Energy Consumption",
+                    "unit": "fJ",
+                    "maximum": 500
+                },
+                {
+                    "description": "Propagation Delay",
+                    "unit": "ps",
+                    "maximum": 500
+                }
+            ],
+            "conditions": {
+                "vdiff": ["-10m", "10m"],
+                "vcm": ["0.9"],
+                "corner": ["tt"]
+            }
+        },
+        "diffdiff_gain": {
+            "testbench": "tb_diffdiff_transfer.sch",
+            "parser": "diffdiff_gain.py",
+            "outputs":  [
+                {
+                    "description": "Differential Gain",
+                    "unit": "V/V",
+                    "minimum": 10
+                }
+            ],
+            "conditions": {
+                "vcm1": ["1.2"],
+                "vcm2": ["1.2"],
+                "vdiff1": ["-10m", "10m"],
+                "vdiff2": ["0"],
+                "corner": ["tt"]
+            }
+        }
+    }    
+}
